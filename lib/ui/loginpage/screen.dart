@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-    final String screenTitle;
-    final String loginTitle;
-    final Widget targetScreen;
+    final String screenTitle; // Title of the screen (default given)
+    final String loginTitle; // Title of the login form (default given)
+    
+    final VoidCallback onLogin; // Function to be called when login is successful
 
     const LoginScreen({
         super.key, 
-        required this.screenTitle, 
+        this.screenTitle = 'Login Screen', 
         this.loginTitle = 'Default Login',
-        required this.targetScreen,
+        required this.onLogin
     });
 
     @override
@@ -25,28 +26,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final TextEditingController _usernameController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
-    final SnackBar _loginFailedSnackBar = const SnackBar(
+    final SnackBar _loginSuccessful = const SnackBar(
         content: Text('Login successful!'),
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.all(16.0),
         shape: StadiumBorder(),
-        duration: Duration(seconds: 2),
+        duration: Duration(milliseconds: 500),
     );
 
-    @override
-    void initState() {
-        super.initState();
-    }
-
-    void _initiateLogin() {
+    // Logic for login
+    // TODO: use credential manager when created
+    void _initiateLogin() { 
         if (_usernameController.text == 'admin' && _passwordController.text == 'admin') {
             setState(() {
                 _loginFailed = false;
             });
-            ScaffoldMessenger.of(context).showSnackBar(_loginFailedSnackBar);
+            ScaffoldMessenger.of(context).showSnackBar(_loginSuccessful);
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) => widget.targetScreen));
+            widget.onLogin(); // call onLogin callback
         } else {
             setState(() {
                 _loginFailed = true;
@@ -56,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     @override
     void dispose() {
+        // Clean up the controller when the widget is disposed.
         _usernameController.dispose();
         _passwordController.dispose();
 

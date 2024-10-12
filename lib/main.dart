@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'screens/index.dart';
+import 'ui/homepage/index.dart';
 
 void main() {
-    runApp(const MyApp(appTitle: 'GreenSHeart Test App',));
+    runApp(const MainApp(appTitle: 'GreenSHeart Test App',));
 }
 
-class MyApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
     final String appTitle;
 
-    const MyApp({
+    // This widget is the root of your application.
+    final Widget homeScreen = const HomeScreen(screenTitle: 'Homepage',);
+
+    const MainApp({
         super.key,
         this.appTitle = 'Default App Title',
     });
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
                 useMaterial3: true,
             ),
-            home: LoginScreen(screenTitle: appTitle, loginTitle: 'User Login', targetScreen: HomeScreen(appTitle: 'GreenSHeart Home Screen',)),
+            home: homeScreen,
         );
     }
 }
