@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greensheart_test/backend/auth/manager.dart';
 
 class LoginScreen extends StatefulWidget {
     final String screenTitle; // Title of the screen (default given)
@@ -36,9 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     // Logic for login
-    // TODO: use credential manager when created down the line 
     void _initiateLogin() { 
-        if (_usernameController.text == 'admin' && _passwordController.text == 'admin') {
+        if (AuthenticationManager().loginUser(_usernameController.text, _passwordController.text)) {
             setState(() {
                 _loginFailed = false;
             });
