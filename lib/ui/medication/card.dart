@@ -18,7 +18,7 @@ class _MedicationCardState extends State<MedicationCard> {
     void _onCardPressed(BuildContext context) {
         showDialog(
             context: context, 
-            builder: (context) => EditMedicationForm(medication: widget.medication),
+            builder: (context) => EditMedicationDialog(medication: widget.medication),
         );
     }
 
@@ -64,7 +64,7 @@ class _MedicationCardState extends State<MedicationCard> {
                                                 ),
                                             ),
                                             Text(
-                                                widget.medication.dosage,
+                                                '${widget.medication.dosage} ${widget.medication.dosageUnit}',
                                                 style: const TextStyle(
                                                     fontSize: 16.0
                                                 ),
@@ -82,7 +82,7 @@ class _MedicationCardState extends State<MedicationCard> {
                                                 ),
                                             ),
                                             Text(
-                                                widget.medication.time,
+                                                widget.medication.time.format(context),
                                                 style: const TextStyle(
                                                     fontSize: 16.0
                                                 ),

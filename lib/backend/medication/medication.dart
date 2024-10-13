@@ -1,15 +1,21 @@
+import 'package:flutter/material.dart';
+import 'package:greensheart_test/backend/medication/manager.dart';
+
 class Medication {
-    int id;
+    late int id;
     String name;
-    String time;
-    String dosage;
+    TimeOfDay time;
+    int dosage;
+    String dosageUnit;
 
     Medication({
-        required this.id,
         required this.name,
         required this.time,
-        required this.dosage
-    });
+        required this.dosage,
+        required this.dosageUnit
+    }) {
+        id = MedicationManager().getNewMedicationID();
+    }
 
     // ================================
     // Functional Methods
@@ -18,13 +24,11 @@ class Medication {
     bool contains(String query) {
         if (query.isEmpty) return true;
 
-        return 
-            name.toLowerCase().contains(query.toLowerCase())
-            || time.toLowerCase().contains(query.toLowerCase())
-            || dosage.toLowerCase().contains(query.toLowerCase());
+        return name.toLowerCase().contains(query.toLowerCase());
     }
 
-    // ================================
-    // Getters and setters
-    // ================================
+    @override
+    String toString() {
+        return 'Medication(id: $id, name: $name, time: $time, dosage: $dosage)';
+    }
 }

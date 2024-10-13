@@ -1,51 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:greensheart_test/backend/medication/medication.dart';
+import 'package:greensheart_test/backend/medication/manager.dart';
+import 'package:greensheart_test/backend/utils/utility.dart';
+import 'package:greensheart_test/ui/medication/prefabs/dialog.dart';
 
-class EditMedicationForm extends StatefulWidget {
-    final Medication medication;
-
-    const EditMedicationForm({
-        super.key, 
-        required this.medication
+class EditMedicationDialog extends MedicationDialog {
+    const EditMedicationDialog({
+        super.key,
+        super.title = 'Edit Medication',
+        super.medication,
     });
 
     @override
-    State<StatefulWidget> createState() => _EditMedicationFormState();
+    State<MedicationDialog> createState() => _EditMedicationFormState();
 }
 
-class _EditMedicationFormState extends State<EditMedicationForm> {
+class _EditMedicationFormState extends MedicationDialogState {
     @override
-    Widget build(BuildContext context) {
-        return AlertDialog(
-            title: const Text('Edit Medication'),
-            content: SingleChildScrollView(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                        Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: TextField(
-                                controller: TextEditingController(text: widget.medication.name),
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Medication Name',
-                                ),
-                            ),
-                        ),
-                    ],
-                ),
-            ),
-            actions: <Widget>[
-                TextButton(
-                    onPressed: () => Navigator.pop(context, 'Cancel'), 
-                    child: const Text('Cancel')
-                ),
-                TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'), 
-                    child: const Text('OK')
-                ),
-            ],
-        );
+    void initState() {
+        super.initState();
+
+        if(widget.medication != null) {
+            nameController.text = widget.medication!.name;
+            timeController.text = Utility().formatTimeOfDay(widget.medication!.time);
+            dosageController.text = widget.medication!.dosage.toString();
+
+            selectedTime = widget.medication!.time;
+            selectedDosageUnit = widget.medication!.dosageUnit;
+        }
+    }
+
+    @override
+    void onSubmit() {
+        super.onSubmit();
+
+        widget.medication!.name = nameController.text;
+        widget.medication!.time = selectedTime;
+        widget.medication!.dosage = int.parse(dosageController.text);
+        widget.medication!.dosageUnit = selectedDosageUnit;
+
+        MedicationManager().updateMedication(widget.medication!);
     }
 }
-    

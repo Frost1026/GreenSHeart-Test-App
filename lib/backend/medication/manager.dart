@@ -5,47 +5,11 @@ class MedicationManager with ChangeNotifier {
     static final MedicationManager _instance = MedicationManager._internal();
     factory MedicationManager() => _instance;
 
-    // Just a static list to act as a database that has the pre existing medications
-    static List<Medication> _medications = [
-        Medication(
-            id: 0,
-            name: 'Aspirin',
-            time: '12:00',
-            dosage: '5mg'
-        ),
-        Medication(
-            id: 1,
-            name: 'Paracetamol',
-            time: '12:00',
-            dosage: '10mg'
-        ),
-        Medication(
-            id: 2,
-            name: 'Ibuprofen',
-            time: '12:00',
-            dosage: '10mg'
-        ),
-        Medication(
-            id: 3,
-            name: 'Cetirizine',
-            time: '12:00',
-            dosage: '10mg'
-        ),
-        Medication(
-            id: 4,
-            name: 'Acetaminophen',
-            time: '12:00',
-            dosage: '10mg'
-        ),
-        Medication(
-            id: 5,
-            name: 'Codeine',
-            time: '12:00',
-            dosage: '10mg'
-        ),
-    ];
+    // Just a list to act as a database that has the pre existing medications
+    List<Medication> _medications = [];
 
-    static List<int> _filteredMedicationsID = [];
+    List<String> _dosageUnits = ['mg', 'mcg', 'g', 'ml'];
+    List<int> _filteredMedicationsID = [];
 
     String _activeFilter = '';
     
@@ -62,21 +26,14 @@ class MedicationManager with ChangeNotifier {
     }
 
     // Updates the medication at the given index
-    void updateMedication(int index, String name, String time, String dosage) {
-        _medications[index].name = name;
-        _medications[index].time = time;
-        _medications[index].dosage = dosage;
+    void updateMedication(Medication medication) {
+        _medications[medication.id] = medication;
         notifyListeners();
     }
 
     // Adds a new medication to the list through Medication class parameters
-    void addMedication(String name, String time, String dosage) {
-        _medications.add(Medication(
-            id: _medications.length,
-            name: name,
-            time: time,
-            dosage: dosage
-        ));
+    void addMedication(Medication medication) {
+        _medications.add(medication);
         notifyListeners();
     }
 
@@ -103,12 +60,10 @@ class MedicationManager with ChangeNotifier {
         filterMedications();
     }
 
-    String getActiveFilter() {
-        return _activeFilter;
-    }
+    String get activeFilter => _activeFilter;
 
     // Returns the number of medications in the list
-    int getMedicationsCount() {
+    int get medicationCount {
         // If there is an active filter, return the number of medications in the filtered list
         if(_activeFilter.isNotEmpty) {
             return _filteredMedicationsID.length;
@@ -132,5 +87,13 @@ class MedicationManager with ChangeNotifier {
 
     List<Medication> getAllMedications() {
         return _medications;
+    }
+
+    List<String> getDosageUnits() {
+        return _dosageUnits;
+    }
+
+    int getNewMedicationID() {
+        return _medications.length;
     }
 }

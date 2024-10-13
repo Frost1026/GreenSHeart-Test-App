@@ -5,6 +5,9 @@ import 'package:greensheart_test/ui/medication/card.dart';
 class MedicationCardGrid extends StatelessWidget {
     const MedicationCardGrid({super.key});
 
+    // ================================
+    // Functional Methods
+    // ================================
     @override
     Widget build(BuildContext context) {
         return ListenableBuilder(
@@ -17,7 +20,7 @@ class MedicationCardGrid extends StatelessWidget {
                     mainAxisSpacing: MediaQuery.of(context).size.height * 0.02,
                     childAspectRatio: 3
                 ),
-                itemCount: MedicationManager().getMedicationsCount(),
+                itemCount: MedicationManager().medicationCount,
                 itemBuilder: (BuildContext context, int index) {
                     return MedicationCard(medication: MedicationManager().getMedication(index),);
                 }

@@ -22,6 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     bool _isLoggedIn = false;
 
+    // ================================
+    // Functional Methods
+    // ================================
     void _login() {
         setState(() {
             _isLoggedIn = true;
@@ -37,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     void _addMedication(BuildContext context) {
         showDialog(
             context: context, 
-            builder: (context) => AddMedicationForm(),
+            builder: (context) => AddMedicationDialog(),
         );
     }
 
@@ -54,12 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: [
                     TextButton.icon(
                         onPressed: _logout,
-                        icon: const Icon(Icons.logout),
+                        icon: const Icon(Icons.logout, 
+                            color: Colors.red
+                        ),
                         label: Text(
                             'Logout',
                             style: TextStyle(
                                 // inverse of backgroundColor
-                                color: Theme.of(context).colorScheme.primary,
+                                color: Colors.red,
                             ),
                         ),
                     ),
@@ -73,12 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.all(16.0),
                         child: SizedBox(
                             width: 300,
-                            // child: TextField(
-                            //     decoration: InputDecoration(
-                            //         labelText: 'Search Medication',
-                            //         border: OutlineInputBorder(),
-                            //     ),
-                            // ),
                             child: _medicationSearchBar,
                         ),
                     ),
