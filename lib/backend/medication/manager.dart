@@ -5,7 +5,7 @@ class MedicationManager with ChangeNotifier {
     static final MedicationManager _instance = MedicationManager._internal();
 
     // Just a static list to act as a database that has the pre existing medications
-    static List<Medication> medications = [
+    static List<Medication> _medications = [
         Medication(
             id: 0,
             name: 'Aspirin',
@@ -52,32 +52,32 @@ class MedicationManager with ChangeNotifier {
 
     // Returns the number of medications in the list
     int getMedicationsCount() {
-        return medications.length;
+        return _medications.length;
     }
 
     // Returns the medication at the given index
     Medication getMedication(int index) {
-        return medications[index];
+        return _medications[index];
     }
 
     // Removes the medication at the given index
     void removeMedication(int index) {
-        medications.removeAt(index);
+        _medications.removeAt(index);
         notifyListeners();
     }
 
     // Updates the medication at the given index
     void updateMedication(int index, String name, String time, String dosage) {
-        medications[index].name = name;
-        medications[index].time = time;
-        medications[index].dosage = dosage;
+        _medications[index].name = name;
+        _medications[index].time = time;
+        _medications[index].dosage = dosage;
         notifyListeners();
     }
 
     // Adds a new medication to the list through Medication class parameters
     void addMedication(String name, String time, String dosage) {
-        medications.add(Medication(
-            id: medications.length,
+        _medications.add(Medication(
+            id: _medications.length,
             name: name,
             time: time,
             dosage: dosage
