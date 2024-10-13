@@ -54,12 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: [
                     TextButton.icon(
                         onPressed: _logout,
-                        icon: const Icon(Icons.logout),
+                        icon: const Icon(Icons.logout, 
+                            color: Colors.red
+                        ),
                         label: Text(
                             'Logout',
                             style: TextStyle(
                                 // inverse of backgroundColor
-                                color: Theme.of(context).colorScheme.primary,
+                                color: Colors.red,
                             ),
                         ),
                     ),
