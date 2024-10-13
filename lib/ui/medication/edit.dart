@@ -48,6 +48,10 @@ class _EditMedicationFormState extends State<EditMedicationForm> {
         );
     }
 
+    void _deleteMedication() {
+        MedicationManager().removeMedication(widget.medication.id);
+    }
+
     @override
     Widget build(BuildContext context) {
         return AlertDialog(
@@ -107,8 +111,11 @@ class _EditMedicationFormState extends State<EditMedicationForm> {
             actions: <Widget>[
                 TextButton(
                     // Return to the previous screen and pass 'Cancel' as the result
-                    onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text('Cancel')
+                    onPressed: () {
+                        _deleteMedication();
+                        Navigator.pop(context, 'Delete');
+                    },
+                    child: const Text('Delete')
                 ),
                 TextButton(
                     // Return to the previous screen and pass 'OK' as the result
