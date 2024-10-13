@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:greensheart_test/backend/medication/index.dart';
 import 'package:greensheart_test/ui/loginpage/index.dart';
+import 'package:greensheart_test/ui/medication/card_grid.dart';
 import 'package:greensheart_test/ui/medication/index.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+    Widget _medicationCardGrid = MedicationCardGrid();
+
     bool _isLoggedIn = false;
 
     void _login() {
@@ -62,21 +64,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
             ),
             backgroundColor: Theme.of(context).colorScheme.surface,
-            body: ListenableBuilder(
-                listenable: MedicationManager(), 
-                builder: (BuildContext context, Widget? child) => GridView.builder(
-                    padding: const EdgeInsets.all(8.0),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: (MediaQuery.of(context).size.width / 300).floor(),
-                        crossAxisSpacing: MediaQuery.of(context).size.width * 0.02,
-                        mainAxisSpacing: MediaQuery.of(context).size.height * 0.02,
-                        childAspectRatio: 3
+            body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                    Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: const SizedBox(
+                            width: 300,
+                            child: TextField(
+                                decoration: InputDecoration(
+                                    labelText: 'Search Medication',
+                                    border: OutlineInputBorder(),
+                                ),
+                            ),
+                        ),
                     ),
-                    itemCount: MedicationManager().getMedicationsCount(),
-                    itemBuilder: (BuildContext context, int index) {
-                        return MedicationCard(medication: MedicationManager().getMedication(index),);
-                    }
-                ),
+                    Expanded(child: _medicationCardGrid),
+                ],
             ),
             floatingActionButton: FloatingActionButton(
                 onPressed: () => _addMedication(context),
