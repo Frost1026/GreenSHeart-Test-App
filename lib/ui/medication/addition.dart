@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greensheart_test/backend/medication/medication_manager.dart';
+import 'package:greensheart_test/backend/medication/manager.dart';
 
 class AddMedicationForm extends StatefulWidget {
     const AddMedicationForm({super.key,});
@@ -61,7 +61,6 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
                             padding: const EdgeInsets.all(4.0),
                             child: TextField(
                                 controller: _dosageController,
-                                obscureText: true,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(),
                                     errorText: null,
