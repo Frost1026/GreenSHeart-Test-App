@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greensheart_test/backend/medication/index.dart';
 import 'package:greensheart_test/ui/loginpage/index.dart';
+import 'package:greensheart_test/ui/medication/addtion.dart';
 import 'package:greensheart_test/ui/medication/card.dart';
 
 class HomeScreen extends StatefulWidget{
@@ -31,6 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
         });
     }
 
+    void _addMedication(BuildContext context) {
+        showDialog(
+            context: context, 
+            builder: (context) => AddMedicationForm(medicationManager: _medicationManager,),
+        );
+    }
+
     @override
     Widget build(BuildContext context) {
         return _isLoggedIn ? _buildMainContent(context) : LoginScreen(screenTitle: 'GreenSHeart Login', loginTitle: 'User Login', onLogin: _login);
@@ -55,12 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                 ],
             ),
+            backgroundColor: Theme.of(context).colorScheme.surface,
             body: GridView.builder(
                 padding: const EdgeInsets.all(8.0),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: (MediaQuery.of(context).size.width / 150).floor(),
+                    crossAxisCount: (MediaQuery.of(context).size.width / 300).floor(),
                     crossAxisSpacing: MediaQuery.of(context).size.width * 0.02,
                     mainAxisSpacing: MediaQuery.of(context).size.height * 0.02,
+                    childAspectRatio: 3
                 ),
                 itemCount: _medicationManager.getMedicationsCount(),
                 itemBuilder: (BuildContext context, int index) {
@@ -68,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
             ),
             floatingActionButton: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () => _addMedication(context),
                 tooltip: 'New Medication',
                 shape: const CircleBorder(),
                 backgroundColor: Colors.green,
