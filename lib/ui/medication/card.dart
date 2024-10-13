@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:greensheart_test/backend/medication/medication.dart';
+import 'package:greensheart_test/ui/medication/edit.dart';
 
 class MedicationCard extends StatefulWidget {
     final Medication medication;
@@ -11,14 +12,20 @@ class MedicationCard extends StatefulWidget {
 }
 
 class _MedicationCardState extends State<MedicationCard> {
-    void _onCardPressed() {
-        print(widget.medication.name);
+    // ================================
+    // Functional Methods
+    // ================================
+    void _onCardPressed(BuildContext context) {
+        showDialog(
+            context: context, 
+            builder: (context) => EditMedicationForm(medication: widget.medication),
+        );
     }
 
     @override
     Widget build(BuildContext context) {
         return ElevatedButton(
-            onPressed: _onCardPressed,
+            onPressed: () => _onCardPressed(context),
             style: ButtonStyle(
                 shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))

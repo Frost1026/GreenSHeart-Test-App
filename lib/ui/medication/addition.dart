@@ -13,6 +13,9 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
     final _timeController = TextEditingController();
     final _dosageController = TextEditingController();
 
+    // ================================
+    // Functional Methods
+    // ================================
     void _addNewMedication() {
         MedicationManager().addMedication(
             _nameController.text,

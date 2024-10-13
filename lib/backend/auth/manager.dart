@@ -4,4 +4,14 @@ class CredentialManager {
 
     // private constructor
     CredentialManager._internal();
+
+    // ================================
+    // Functional Methods
+    // ================================
+
+
+    // ================================
+    // Getters and setters
+    // ================================
+    
 }

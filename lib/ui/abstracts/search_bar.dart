@@ -12,6 +12,9 @@ abstract class CustomSearchBar extends StatefulWidget {
         this.borderColor = Colors.black,
     });
 
+    // ================================
+    // Functional Methods
+    // ================================
     void search(String query);
 
     @override
@@ -26,7 +29,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
                     borderSide: BorderSide(color: widget.borderColor),
                 ),
                 labelText: widget.searchLabel,
