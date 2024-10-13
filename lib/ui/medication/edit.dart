@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greensheart_test/backend/medication/manager.dart';
 import 'package:greensheart_test/backend/utils/utility.dart';
-import 'package:greensheart_test/ui/medication/prefabs/dialog_state.dart';
+import 'package:greensheart_test/ui/medication/prefabs/dialog.dart';
 
 class EditMedicationDialog extends MedicationDialog {
     const EditMedicationDialog({
@@ -33,12 +33,11 @@ class _EditMedicationFormState extends MedicationDialogState {
     void onSubmit() {
         super.onSubmit();
 
-        MedicationManager().updateMedication(
-            widget.medication!.id,
-            nameController.text,
-            selectedTime,
-            int.parse(dosageController.text),
-            selectedDosageUnit
-        );
+        widget.medication!.name = nameController.text;
+        widget.medication!.time = selectedTime;
+        widget.medication!.dosage = int.parse(dosageController.text);
+        widget.medication!.dosageUnit = selectedDosageUnit;
+
+        MedicationManager().updateMedication(widget.medication!);
     }
 }

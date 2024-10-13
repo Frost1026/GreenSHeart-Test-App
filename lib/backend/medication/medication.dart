@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:greensheart_test/backend/medication/manager.dart';
 
 class Medication {
-    int id;
+    late int id;
     String name;
     TimeOfDay time;
     int dosage;
     String dosageUnit;
 
     Medication({
-        required this.id,
         required this.name,
         required this.time,
         required this.dosage,
         required this.dosageUnit
-    });
+    }) {
+        id = MedicationManager().getNewMedicationID();
+    }
 
     // ================================
     // Functional Methods

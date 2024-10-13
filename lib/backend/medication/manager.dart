@@ -6,50 +6,7 @@ class MedicationManager with ChangeNotifier {
     factory MedicationManager() => _instance;
 
     // Just a list to act as a database that has the pre existing medications
-    List<Medication> _medications = [
-        Medication(
-            id: 0,
-            name: 'Aspirin',
-            time: TimeOfDay.now(),
-            dosage: 10,
-            dosageUnit: 'mg'
-        ),
-        Medication(
-            id: 1,
-            name: 'Paracetamol',
-            time: TimeOfDay.now(),
-            dosage: 10,
-            dosageUnit: 'mg'
-        ),
-        Medication(
-            id: 2,
-            name: 'Ibuprofen',
-            time: TimeOfDay.now(),
-            dosage: 10,
-            dosageUnit: 'mg'
-        ),
-        Medication(
-            id: 3,
-            name: 'Cetirizine',
-            time: TimeOfDay.now(),
-            dosage: 10,
-            dosageUnit: 'mg'
-        ),
-        Medication(
-            id: 4,
-            name: 'Acetaminophen',
-            time: TimeOfDay.now(),
-            dosage: 10,
-            dosageUnit: 'mg'
-        ),
-        Medication(
-            id: 5,
-            name: 'Codeine',
-            time: TimeOfDay.now(),
-            dosage: 10,
-            dosageUnit: 'mg'
-        ),
-    ];
+    List<Medication> _medications = [];
 
     List<String> _dosageUnits = ['mg', 'mcg', 'g', 'ml'];
     List<int> _filteredMedicationsID = [];
@@ -69,23 +26,14 @@ class MedicationManager with ChangeNotifier {
     }
 
     // Updates the medication at the given index
-    void updateMedication(int index, String name, TimeOfDay time, int dosage, String dosageUnit) {
-        _medications[index].name = name;
-        _medications[index].time = time;
-        _medications[index].dosage = dosage;
-        _medications[index].dosageUnit = dosageUnit;
+    void updateMedication(Medication medication) {
+        _medications[medication.id] = medication;
         notifyListeners();
     }
 
     // Adds a new medication to the list through Medication class parameters
-    void addMedication(String name, TimeOfDay time, int dosage, String dosageUnit) {
-        _medications.add(Medication(
-            id: _medications.length,
-            name: name,
-            time: time,
-            dosage: dosage,
-            dosageUnit: dosageUnit
-        ));
+    void addMedication(Medication medication) {
+        _medications.add(medication);
         notifyListeners();
     }
 
@@ -143,5 +91,9 @@ class MedicationManager with ChangeNotifier {
 
     List<String> getDosageUnits() {
         return _dosageUnits;
+    }
+
+    int getNewMedicationID() {
+        return _medications.length;
     }
 }

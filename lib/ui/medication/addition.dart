@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greensheart_test/backend/medication/manager.dart';
-import 'package:greensheart_test/ui/medication/prefabs/dialog_state.dart';
+import 'package:greensheart_test/backend/medication/medication.dart';
+import 'package:greensheart_test/ui/medication/prefabs/dialog.dart';
 
 class AddMedicationDialog extends MedicationDialog {
     const AddMedicationDialog({
@@ -20,11 +21,11 @@ class _AddMedicationFormState extends MedicationDialogState {
     void onSubmit() {
         super.onSubmit();
 
-        MedicationManager().addMedication(
-            nameController.text,
-            selectedTime,
-            int.parse(dosageController.text),
-            selectedDosageUnit
-        );
+        MedicationManager().addMedication(Medication(
+            name: nameController.text, 
+            time: selectedTime, 
+            dosage: int.parse(dosageController.text), 
+            dosageUnit: selectedDosageUnit
+        ));
     }
 }

@@ -22,6 +22,7 @@ class MedicationDialogState extends State<MedicationDialog> {
     final TextEditingController nameController = TextEditingController();
     final TextEditingController timeController = TextEditingController();
     final TextEditingController dosageController = TextEditingController();
+    final TextEditingController prescriberController = TextEditingController();
 
     TimeOfDay selectedTime = TimeOfDay.now();
     String selectedDosageUnit = MedicationManager().getDosageUnits()[0];
@@ -29,12 +30,14 @@ class MedicationDialogState extends State<MedicationDialog> {
     bool nameEmpty = false;
     bool timeEmpty = false;
     bool dosageEmpty = false;
+    bool prescriberEmpty = false;
 
     @override
     void dispose() {
         nameController.dispose();
         timeController.dispose();
         dosageController.dispose();
+        prescriberController.dispose();
         super.dispose();
     }
 
@@ -130,16 +133,6 @@ class MedicationDialogState extends State<MedicationDialog> {
                         ),  
                         Padding(
                             padding: const EdgeInsets.all(4.0),
-                            // child: TextField(
-                            //     controller: dosageController,
-                            //     decoration: InputDecoration(
-                            //         border: OutlineInputBorder(),
-                            //         errorText: dosageEmpty ? 'Please enter a medication dosage' : null,
-                            //         labelText: 'Medication Dosage',
-                            //     ),
-                            //     textInputAction: TextInputAction.done,
-                            //     onSubmitted: (_) => onSubmit(),
-                            // ),
                             child: Row(
                                 children: [
                                     Expanded(
@@ -174,6 +167,18 @@ class MedicationDialogState extends State<MedicationDialog> {
                                 ],
                             )
                         ),
+                        Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: TextField(
+                                controller: prescriberController,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Medication Prescriber',
+                                ),
+                                textInputAction: TextInputAction.next,
+                                onSubmitted: (_) => onSubmit(),
+                            ),
+                        ),  
                     ],
                 ),
             ),

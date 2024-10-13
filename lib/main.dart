@@ -1,7 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:greensheart_test/backend/medication/manager.dart';
+import 'package:greensheart_test/backend/medication/medication.dart';
 import 'ui/homepage/index.dart';
 
 void main() {
+    //TODO: Remove these lines (these are for testing purposes)
+    MedicationManager().addMedication(Medication(
+        name: 'Aspirin',
+        time: TimeOfDay.now(),
+        dosage: 10,
+        dosageUnit: 'mg'
+    ));
+
+    MedicationManager().addMedication(Medication(
+        name: 'Paracetamol',
+        time: TimeOfDay.now(),
+        dosage: 10,
+        dosageUnit: 'mg'
+    ));
+
+    MedicationManager().addMedication(Medication(
+        name: 'Ibuprofen',
+        time: TimeOfDay.now(),
+        dosage: 10,
+        dosageUnit: 'mg'
+    ));
+
+    MedicationManager().addMedication(Medication(
+        name: 'Cetirizine',
+        time: TimeOfDay.now(),
+        dosage: 10,
+        dosageUnit: 'mg'
+    ));
+
+    MedicationManager().addMedication(Medication(
+        name: 'Acetaminophen',
+        time: TimeOfDay.now(),
+        dosage: 10,
+        dosageUnit: 'mg'
+    ));
+    
+    MedicationManager().addMedication(Medication(
+        name: 'Codeine',
+        time: TimeOfDay.now(),
+        dosage: 10,
+        dosageUnit: 'mg'
+    ));
+
     runApp(const MainApp(appTitle: 'GreenSHeart Test App',));
 }
 
