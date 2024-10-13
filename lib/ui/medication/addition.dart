@@ -9,9 +9,9 @@ class AddMedicationForm extends StatefulWidget {
 }
 
 class _AddMedicationFormState extends State<AddMedicationForm> {
-    final _nameController = TextEditingController();
-    final _timeController = TextEditingController();
-    final _dosageController = TextEditingController();
+    final TextEditingController _nameController = TextEditingController();
+    final TextEditingController _timeController = TextEditingController();
+    final TextEditingController _dosageController = TextEditingController();
 
     // ================================
     // Functional Methods
@@ -46,6 +46,10 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
                                     labelText: 'Medication Name',
                                 ),
                                 textInputAction: TextInputAction.next,
+                                onSubmitted: (_) {
+                                    _addNewMedication();
+                                    Navigator.of(context).pop();
+                                },
                             ),
                         ),  
                         Padding(
@@ -58,6 +62,10 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
                                     labelText: 'Medication Time',
                                 ),
                                 textInputAction: TextInputAction.next,
+                                onSubmitted: (_) {
+                                    _addNewMedication();
+                                    Navigator.of(context).pop();
+                                },
                             ),
                         ),  
                         Padding(
@@ -69,7 +77,7 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
                                     errorText: null,
                                     labelText: 'Medication Dosage',
                                 ),
-                                textInputAction: TextInputAction.send,
+                                textInputAction: TextInputAction.done,
                                 onSubmitted: (_) {
                                     _addNewMedication();
                                     Navigator.of(context).pop();
