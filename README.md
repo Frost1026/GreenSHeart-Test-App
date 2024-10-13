@@ -40,6 +40,7 @@ the rebuild of the ui to the medication card grid instead of the entire applicat
 also be used in the future to be able to listen for specific changes like on medication 
 update to maybe update a timer for an alarm.
 
+## Design Assumptions
 As for any assumptions made, I assumed the application will be cross platformed, so additional
 care was taken to make sure the application will look normal for various sized displays, and 
 mobile based code for text input specification down to the mobile keyboard to use is written 
