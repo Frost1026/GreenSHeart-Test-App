@@ -22,6 +22,9 @@ abstract class CustomSearchBar extends StatefulWidget {
 }
 
 class _CustomSearchBarState extends State<CustomSearchBar> {
+    // ================================
+    // Functional Methods
+    // ================================
     @override
     Widget build(BuildContext context) {
         return TextField(

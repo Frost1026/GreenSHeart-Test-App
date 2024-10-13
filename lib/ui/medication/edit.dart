@@ -1,123 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:greensheart_test/backend/medication/manager.dart';
-import 'package:greensheart_test/backend/medication/medication.dart';
+import 'package:greensheart_test/backend/utils/utility.dart';
+import 'package:greensheart_test/ui/medication/prefabs/dialog_state.dart';
 
-class EditMedicationForm extends StatefulWidget {
-    final Medication medication;
-
-    const EditMedicationForm({
-        super.key, 
-        required this.medication
+class EditMedicationDialog extends MedicationDialog {
+    const EditMedicationDialog({
+        super.key,
+        super.title = 'Edit Medication',
+        super.medication,
     });
 
     @override
-    State<StatefulWidget> createState() => _EditMedicationFormState();
+    State<MedicationDialog> createState() => _EditMedicationFormState();
 }
 
-class _EditMedicationFormState extends State<EditMedicationForm> {
-    final TextEditingController _nameController = TextEditingController();
-    final TextEditingController _timeController = TextEditingController();
-    final TextEditingController _dosageController = TextEditingController();
-
-    // initialization call after the widget has been allocated memory
+class _EditMedicationFormState extends MedicationDialogState {
     @override
     void initState() {
         super.initState();
-        _nameController.text = widget.medication.name;
-        _timeController.text = widget.medication.time;
-        _dosageController.text = widget.medication.dosage;
+
+        if(widget.medication != null) {
+            nameController.text = widget.medication!.name;
+            timeController.text = Utility().formatTimeOfDay(widget.medication!.time);
+            dosageController.text = widget.medication!.dosage.toString();
+
+            selectedTime = widget.medication!.time;
+            selectedDosageUnit = widget.medication!.dosageUnit;
+        }
     }
 
     @override
-    void dispose() {
-        _nameController.dispose();
-        _timeController.dispose();
-        _dosageController.dispose();
-        super.dispose();
-    }
+    void onSubmit() {
+        super.onSubmit();
 
-    // ================================
-    // Functional Methods
-    // ================================
-    void _updateMedication() {
         MedicationManager().updateMedication(
-            widget.medication.id,
-            _nameController.text,
-            _timeController.text,
-            _dosageController.text
-        );
-        Navigator.pop(context, 'Done');
-    }
-
-    void _deleteMedication() {
-        MedicationManager().removeMedication(widget.medication.id);
-        Navigator.pop(context, 'Delete');
-    }
-
-    @override
-    Widget build(BuildContext context) {
-        return AlertDialog(
-            title: const Text('Edit Medication'),
-            content: SingleChildScrollView(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                        Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: TextField(
-                                controller: _nameController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Medication Name',
-                                ),
-                                textInputAction: TextInputAction.next,
-                                onSubmitted: (_) => _updateMedication(),
-                            ),
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: TextField(
-                                controller: _timeController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Time',
-                                ),
-                                textInputAction: TextInputAction.next,
-                                onSubmitted: (_) => _updateMedication(),
-                            ),
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: TextField(
-                                controller: _dosageController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Dosage',
-                                ),
-                                textInputAction: TextInputAction.done,
-                                onSubmitted: (_) => _updateMedication(),
-                            )
-                        ),
-                    ],
-                ),
-            ),
-            actions: <Widget>[
-                TextButton(
-                    // Return to the previous screen and pass 'Cancel' as the result
-                    onPressed: _deleteMedication,
-                    child: const Text('Delete')
-                ),
-                TextButton(
-                    // Return to the previous screen and pass 'OK' as the result
-                    onPressed: _updateMedication,
-                    child: const Text('Done')
-                ),
-            ],
+            widget.medication!.id,
+            nameController.text,
+            selectedTime,
+            int.parse(dosageController.text),
+            selectedDosageUnit
         );
     }
-
-    // ================================
-    // Getters and setters
-    // ================================
 }
-    

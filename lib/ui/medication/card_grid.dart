@@ -5,6 +5,9 @@ import 'package:greensheart_test/ui/medication/card.dart';
 class MedicationCardGrid extends StatelessWidget {
     const MedicationCardGrid({super.key});
 
+    // ================================
+    // Functional Methods
+    // ================================
     @override
     Widget build(BuildContext context) {
         return ListenableBuilder(

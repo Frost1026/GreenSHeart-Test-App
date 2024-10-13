@@ -36,6 +36,18 @@ class _LoginScreenState extends State<LoginScreen> {
         duration: Duration(milliseconds: 500),
     );
 
+    @override
+    void dispose() {
+        // Clean up the controller when the widget is disposed.
+        _usernameController.dispose();
+        _passwordController.dispose();
+
+        super.dispose();
+    }
+
+    // ================================
+    // Functional Methods
+    // ================================
     // Logic for login
     void _initiateLogin() { 
         if (AuthenticationManager().loginUser(_usernameController.text, _passwordController.text)) {
@@ -50,15 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 _loginFailed = true;
             });
         }
-    }
-
-    @override
-    void dispose() {
-        // Clean up the controller when the widget is disposed.
-        _usernameController.dispose();
-        _passwordController.dispose();
-
-        super.dispose();
     }
 
     @override

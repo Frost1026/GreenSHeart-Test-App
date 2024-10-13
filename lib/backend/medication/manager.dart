@@ -5,47 +5,54 @@ class MedicationManager with ChangeNotifier {
     static final MedicationManager _instance = MedicationManager._internal();
     factory MedicationManager() => _instance;
 
-    // Just a static list to act as a database that has the pre existing medications
-    static List<Medication> _medications = [
+    // Just a list to act as a database that has the pre existing medications
+    List<Medication> _medications = [
         Medication(
             id: 0,
             name: 'Aspirin',
-            time: '12:00',
-            dosage: '5mg'
+            time: TimeOfDay.now(),
+            dosage: 10,
+            dosageUnit: 'mg'
         ),
         Medication(
             id: 1,
             name: 'Paracetamol',
-            time: '12:00',
-            dosage: '10mg'
+            time: TimeOfDay.now(),
+            dosage: 10,
+            dosageUnit: 'mg'
         ),
         Medication(
             id: 2,
             name: 'Ibuprofen',
-            time: '12:00',
-            dosage: '10mg'
+            time: TimeOfDay.now(),
+            dosage: 10,
+            dosageUnit: 'mg'
         ),
         Medication(
             id: 3,
             name: 'Cetirizine',
-            time: '12:00',
-            dosage: '10mg'
+            time: TimeOfDay.now(),
+            dosage: 10,
+            dosageUnit: 'mg'
         ),
         Medication(
             id: 4,
             name: 'Acetaminophen',
-            time: '12:00',
-            dosage: '10mg'
+            time: TimeOfDay.now(),
+            dosage: 10,
+            dosageUnit: 'mg'
         ),
         Medication(
             id: 5,
             name: 'Codeine',
-            time: '12:00',
-            dosage: '10mg'
+            time: TimeOfDay.now(),
+            dosage: 10,
+            dosageUnit: 'mg'
         ),
     ];
 
-    static List<int> _filteredMedicationsID = [];
+    List<String> _dosageUnits = ['mg', 'mcg', 'g', 'ml'];
+    List<int> _filteredMedicationsID = [];
 
     String _activeFilter = '';
     
@@ -62,20 +69,22 @@ class MedicationManager with ChangeNotifier {
     }
 
     // Updates the medication at the given index
-    void updateMedication(int index, String name, String time, String dosage) {
+    void updateMedication(int index, String name, TimeOfDay time, int dosage, String dosageUnit) {
         _medications[index].name = name;
         _medications[index].time = time;
         _medications[index].dosage = dosage;
+        _medications[index].dosageUnit = dosageUnit;
         notifyListeners();
     }
 
     // Adds a new medication to the list through Medication class parameters
-    void addMedication(String name, String time, String dosage) {
+    void addMedication(String name, TimeOfDay time, int dosage, String dosageUnit) {
         _medications.add(Medication(
             id: _medications.length,
             name: name,
             time: time,
-            dosage: dosage
+            dosage: dosage,
+            dosageUnit: dosageUnit
         ));
         notifyListeners();
     }
@@ -130,5 +139,9 @@ class MedicationManager with ChangeNotifier {
 
     List<Medication> getAllMedications() {
         return _medications;
+    }
+
+    List<String> getDosageUnits() {
+        return _dosageUnits;
     }
 }

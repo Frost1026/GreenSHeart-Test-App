@@ -22,6 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     bool _isLoggedIn = false;
 
+    // ================================
+    // Functional Methods
+    // ================================
     void _login() {
         setState(() {
             _isLoggedIn = true;
@@ -37,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     void _addMedication(BuildContext context) {
         showDialog(
             context: context, 
-            builder: (context) => AddMedicationForm(),
+            builder: (context) => AddMedicationDialog(),
         );
     }
 
