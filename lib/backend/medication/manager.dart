@@ -103,12 +103,10 @@ class MedicationManager with ChangeNotifier {
         filterMedications();
     }
 
-    String getActiveFilter() {
-        return _activeFilter;
-    }
+    String get activeFilter => _activeFilter;
 
     // Returns the number of medications in the list
-    int getMedicationsCount() {
+    int get medicationCount {
         // If there is an active filter, return the number of medications in the filtered list
         if(_activeFilter.isNotEmpty) {
             return _filteredMedicationsID.length;
