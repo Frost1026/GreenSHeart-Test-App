@@ -46,10 +46,12 @@ class _EditMedicationFormState extends State<EditMedicationForm> {
             _timeController.text,
             _dosageController.text
         );
+        Navigator.pop(context, 'Done');
     }
 
     void _deleteMedication() {
         MedicationManager().removeMedication(widget.medication.id);
+        Navigator.pop(context, 'Delete');
     }
 
     @override
@@ -69,10 +71,7 @@ class _EditMedicationFormState extends State<EditMedicationForm> {
                                     labelText: 'Medication Name',
                                 ),
                                 textInputAction: TextInputAction.next,
-                                onSubmitted: (_) {
-                                    _updateMedication();
-                                    Navigator.pop(context, 'OK');
-                                },
+                                onSubmitted: (_) => _updateMedication(),
                             ),
                         ),
                         Padding(
@@ -84,10 +83,7 @@ class _EditMedicationFormState extends State<EditMedicationForm> {
                                     labelText: 'Time',
                                 ),
                                 textInputAction: TextInputAction.next,
-                                onSubmitted: (_) {
-                                    _updateMedication();
-                                    Navigator.pop(context, 'OK');
-                                },
+                                onSubmitted: (_) => _updateMedication(),
                             ),
                         ),
                         Padding(
@@ -99,10 +95,7 @@ class _EditMedicationFormState extends State<EditMedicationForm> {
                                     labelText: 'Dosage',
                                 ),
                                 textInputAction: TextInputAction.done,
-                                onSubmitted: (_) {
-                                    _updateMedication();
-                                    Navigator.pop(context, 'OK');
-                                },
+                                onSubmitted: (_) => _updateMedication(),
                             )
                         ),
                     ],
@@ -111,19 +104,13 @@ class _EditMedicationFormState extends State<EditMedicationForm> {
             actions: <Widget>[
                 TextButton(
                     // Return to the previous screen and pass 'Cancel' as the result
-                    onPressed: () {
-                        _deleteMedication();
-                        Navigator.pop(context, 'Delete');
-                    },
+                    onPressed: _deleteMedication,
                     child: const Text('Delete')
                 ),
                 TextButton(
                     // Return to the previous screen and pass 'OK' as the result
-                    onPressed: () {
-                        _updateMedication();
-                        Navigator.pop(context, 'OK');
-                    }, 
-                    child: const Text('OK')
+                    onPressed: _updateMedication,
+                    child: const Text('Done')
                 ),
             ],
         );

@@ -22,6 +22,7 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
             _timeController.text,
             _dosageController.text,
         );
+        Navigator.pop(context, 'Done');
     }
 
     @override
@@ -46,10 +47,7 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
                                     labelText: 'Medication Name',
                                 ),
                                 textInputAction: TextInputAction.next,
-                                onSubmitted: (_) {
-                                    _addNewMedication();
-                                    Navigator.of(context).pop();
-                                },
+                                onSubmitted: (_) => _addNewMedication(),
                             ),
                         ),  
                         Padding(
@@ -62,10 +60,7 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
                                     labelText: 'Medication Time',
                                 ),
                                 textInputAction: TextInputAction.next,
-                                onSubmitted: (_) {
-                                    _addNewMedication();
-                                    Navigator.of(context).pop();
-                                },
+                                onSubmitted: (_) => _addNewMedication(),
                             ),
                         ),  
                         Padding(
@@ -78,10 +73,7 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
                                     labelText: 'Medication Dosage',
                                 ),
                                 textInputAction: TextInputAction.done,
-                                onSubmitted: (_) {
-                                    _addNewMedication();
-                                    Navigator.of(context).pop();
-                                },
+                                onSubmitted: (_) => _addNewMedication(),
                             ),
                         ),
                     ],
@@ -90,14 +82,14 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
             actions: <Widget>[
                 TextButton(
                     onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, 'Cancel');
                     },
                     child: const Text('Cancel'),
                 ),
                 TextButton(
                     onPressed: () {
                         _addNewMedication();
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, 'Done');
                     },
                     child: const Text('Add'),
                 ),
