@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greensheart_test/ui/loginpage/index.dart';
 import 'package:greensheart_test/ui/medication/card_grid.dart';
 import 'package:greensheart_test/ui/medication/index.dart';
+import 'package:greensheart_test/ui/medication/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
     final String screenTitle;
@@ -16,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+    Widget _medicationSearchBar = MedicationSearchBar();
     Widget _medicationCardGrid = MedicationCardGrid();
 
     bool _isLoggedIn = false;
@@ -69,14 +71,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                     Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: const SizedBox(
+                        child: SizedBox(
                             width: 300,
-                            child: TextField(
-                                decoration: InputDecoration(
-                                    labelText: 'Search Medication',
-                                    border: OutlineInputBorder(),
-                                ),
-                            ),
+                            // child: TextField(
+                            //     decoration: InputDecoration(
+                            //         labelText: 'Search Medication',
+                            //         border: OutlineInputBorder(),
+                            //     ),
+                            // ),
+                            child: _medicationSearchBar,
                         ),
                     ),
                     Expanded(child: _medicationCardGrid),
