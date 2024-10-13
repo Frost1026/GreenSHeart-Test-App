@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     // Logic for login
-    // TODO: use credential manager when created
+    // TODO: use credential manager when created down the line 
     void _initiateLogin() { 
         if (_usernameController.text == 'admin' && _passwordController.text == 'admin') {
             setState(() {
