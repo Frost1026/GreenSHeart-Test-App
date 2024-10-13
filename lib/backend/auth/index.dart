@@ -1,1 +1,1 @@
-export './credential_manager.dart';
+export 'manager.dart';
