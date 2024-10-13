@@ -67,7 +67,10 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
                                     labelText: 'Medication Dosage',
                                 ),
                                 textInputAction: TextInputAction.send,
-                                onSubmitted: (_) => _addNewMedication(),
+                                onSubmitted: (_) {
+                                    _addNewMedication();
+                                    Navigator.of(context).pop();
+                                },
                             ),
                         ),
                     ],
