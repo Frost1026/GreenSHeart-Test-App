@@ -18,50 +18,80 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
     final _timeController = TextEditingController();
     final _dosageController = TextEditingController();
 
+    void _addNewMedication() {
+        widget.medicationManager.addMedication(
+            _nameController.text,
+            _timeController.text,
+            _dosageController.text,
+        );
+    }
+
     @override
     Widget build(BuildContext context) {
         return AlertDialog(
+            // set width and heigh of the dialog
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+            ),
             title: Text('Add Medication'),
-            content: Center(
-                child: Container(
-                    constraints: BoxConstraints(maxWidth: 300, maxHeight: 300),
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                        children: [
-                            TextField(
+            content: SingleChildScrollView(
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                        Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: TextField(
                                 controller: _nameController,
                                 decoration: InputDecoration(
-                                    labelText: 'Name'   
+                                    border: OutlineInputBorder(),
+                                    errorText: null,
+                                    labelText: 'Medication Name',
                                 ),
+                                textInputAction: TextInputAction.next,
                             ),
-                            TextField(
+                        ),  
+                        Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: TextField(
                                 controller: _timeController,
                                 decoration: InputDecoration(
-                                    labelText: 'Time'
+                                    border: OutlineInputBorder(),
+                                    errorText: null,
+                                    labelText: 'Medication Time',
                                 ),
+                                textInputAction: TextInputAction.next,
                             ),
-                            TextField(
+                        ),  
+                        Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: TextField(
                                 controller: _dosageController,
+                                obscureText: true,
                                 decoration: InputDecoration(
-                                    labelText: 'Dosage'
+                                    border: OutlineInputBorder(),
+                                    errorText: null,
+                                    labelText: 'Medication Dosage',
                                 ),
+                                textInputAction: TextInputAction.send,
+                                onSubmitted: (_) => _addNewMedication(),
                             ),
-                        ],
-                    ),
+                        ),
+                    ],
                 ),
             ),
-            actions: [
+            actions: <Widget>[
                 TextButton(
                     onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).pop();
                     },
-                    child: Text('Cancel')
+                    child: const Text('Cancel'),
                 ),
                 TextButton(
                     onPressed: () {
-                        Navigator.pop(context);
+                        _addNewMedication();
+                        Navigator.of(context).pop();
                     },
-                    child: Text('Add')
+                    child: const Text('Add'),
                 ),
             ],
         );
