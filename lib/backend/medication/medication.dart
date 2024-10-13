@@ -1,8 +1,8 @@
 class Medication {
-    final int id;
-    final String name;
-    final DateTime time;
-    final String dosage;
+    int id;
+    String name;
+    String time;
+    String dosage;
 
     Medication({
         required this.id,
