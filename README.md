@@ -39,3 +39,14 @@ invoke the notifyListeners function to initiate the card grid rebuild. This can 
 the rebuild of the ui to the medication card grid instead of the entire application. This can
 also be used in the future to be able to listen for specific changes like on medication 
 update to maybe update a timer for an alarm.
+
+As for any assumptions made, I assumed the application will be cross platformed, so additional
+care was taken to make sure the application will look normal for various sized displays, and 
+mobile based code for text input specification down to the mobile keyboard to use is written 
+and used. The assumption of the medication details of dosage is numerical and accompanied by
+a unit of measure that we assumed to be mg, mcg, g, mL, but the units can be changed in the 
+source code if needed. The last assumption is that the medications will be populated after compile
+time, so the method to add a medication is written in a way where the medication id is based 
+upon the length of the list which can only be done at runtime and in a one by one manner in the
+main function to sorta mimic the application loading and populating the medication list from 
+an external database.
