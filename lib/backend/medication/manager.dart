@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:greensheart_test/backend/medication/medication.dart';
 
-class MedicationManager {
+class MedicationManager with ChangeNotifier {
+    static final MedicationManager _instance = MedicationManager._internal();
+
     // Just a static list to act as a database that has the pre existing medications
     static List<Medication> medications = [
         Medication(
@@ -40,6 +43,12 @@ class MedicationManager {
             dosage: '10mg'
         ),
     ];
+    
+    // Private constructor
+    MedicationManager._internal();
+
+    // Private constructor
+    factory MedicationManager() => _instance;
 
     // Returns the number of medications in the list
     int getMedicationsCount() {
@@ -54,6 +63,7 @@ class MedicationManager {
     // Removes the medication at the given index
     void removeMedication(int index) {
         medications.removeAt(index);
+        notifyListeners();
     }
 
     // Updates the medication at the given index
@@ -61,6 +71,7 @@ class MedicationManager {
         medications[index].name = name;
         medications[index].time = time;
         medications[index].dosage = dosage;
+        notifyListeners();
     }
 
     // Adds a new medication to the list through Medication class parameters
@@ -71,5 +82,6 @@ class MedicationManager {
             time: time,
             dosage: dosage
         ));
+        notifyListeners();
     }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:greensheart_test/backend/medication/index.dart';
 import 'package:greensheart_test/ui/loginpage/index.dart';
-import 'package:greensheart_test/ui/medication/addtion.dart';
-import 'package:greensheart_test/ui/medication/card.dart';
+import 'package:greensheart_test/ui/medication/index.dart';
 
-class HomeScreen extends StatefulWidget{
+class HomeScreen extends StatefulWidget {
     final String screenTitle;
 
     const HomeScreen({
@@ -18,7 +17,6 @@ class HomeScreen extends StatefulWidget{
 
 class _HomeScreenState extends State<HomeScreen> {
     bool _isLoggedIn = false;
-    MedicationManager _medicationManager = MedicationManager();
 
     void _login() {
         setState(() {
@@ -35,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     void _addMedication(BuildContext context) {
         showDialog(
             context: context, 
-            builder: (context) => AddMedicationForm(medicationManager: _medicationManager,),
+            builder: (context) => AddMedicationForm(),
         );
     }
 
@@ -64,18 +62,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
             ),
             backgroundColor: Theme.of(context).colorScheme.surface,
-            body: GridView.builder(
-                padding: const EdgeInsets.all(8.0),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: (MediaQuery.of(context).size.width / 300).floor(),
-                    crossAxisSpacing: MediaQuery.of(context).size.width * 0.02,
-                    mainAxisSpacing: MediaQuery.of(context).size.height * 0.02,
-                    childAspectRatio: 3
+            body: ListenableBuilder(
+                listenable: MedicationManager(), 
+                builder: (BuildContext context, Widget? child) => GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: (MediaQuery.of(context).size.width / 300).floor(),
+                        crossAxisSpacing: MediaQuery.of(context).size.width * 0.02,
+                        mainAxisSpacing: MediaQuery.of(context).size.height * 0.02,
+                        childAspectRatio: 3
+                    ),
+                    itemCount: MedicationManager().getMedicationsCount(),
+                    itemBuilder: (BuildContext context, int index) {
+                        return MedicationCard(medication: MedicationManager().getMedication(index),);
+                    }
                 ),
-                itemCount: _medicationManager.getMedicationsCount(),
-                itemBuilder: (BuildContext context, int index) {
-                    return MedicationCard(medication: _medicationManager.getMedication(index),);
-                }
             ),
             floatingActionButton: FloatingActionButton(
                 onPressed: () => _addMedication(context),

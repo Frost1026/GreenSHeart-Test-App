@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:greensheart_test/backend/medication/index.dart';
+import 'package:greensheart_test/backend/medication/medication_manager.dart';
 
 class AddMedicationForm extends StatefulWidget {
-    final MedicationManager medicationManager;
-
-    const AddMedicationForm({
-        super.key,
-        required this.medicationManager,
-    });
+    const AddMedicationForm({super.key,});
 
     @override
     State<AddMedicationForm> createState() => _AddMedicationFormState();
@@ -19,7 +14,7 @@ class _AddMedicationFormState extends State<AddMedicationForm> {
     final _dosageController = TextEditingController();
 
     void _addNewMedication() {
-        widget.medicationManager.addMedication(
+        MedicationManager().addMedication(
             _nameController.text,
             _timeController.text,
             _dosageController.text,
